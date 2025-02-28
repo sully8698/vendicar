@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-// import { signup } from "../api/authApi";
+import { signup } from "../../api/authApi";
 
 export default function SignUpForm() {
     const [formData, setFormData] = useState({
         business_user_name: "",
-        password: "",
-        business_name: "",
-        street_name: "",
-        city: "",
-        phone_number: "",
-        business_email: "",
+            password: "",
+            business_name: "",
+            state: "",
+            street_name: "",
+            zip_code: "",
+            city: "",
+            phone_number: "",
+            business_email: "",
     })
 
     const handleChange = (e) => {
@@ -22,28 +24,35 @@ export default function SignUpForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
+        console.log(formData)
         const context = {
-            business_user_name: formData.business_user_name,
+            username: formData.business_user_name, 
             password: formData.password,
-            business_name: formData.business_name,
-            street_name: formData.street_name,
-            city: formData.city,
-            phone_number: formData.phone_number,
-            business_email: formData.business_email,
+            car_dealer_profile: {
+                business_name: formData.business_name,
+                state: formData.state, 
+                street_name: formData.street_name,
+                zip_code: formData.zip_code, 
+                city: formData.city,
+                phone_number: formData.phone_number,
+                business_email: formData.business_email,
+            }
          }
         
-        //  const response = await signup(context)
-         
+        const response = await signup(context)
+        
         setFormData({
             business_user_name: "",
             password: "",
             business_name: "",
+            state: "",
             street_name: "",
+            zip_code: "",
             city: "",
             phone_number: "",
             business_email: "",
         }); 
+        console.log(formData)
     }
                
         // console.log("form Data:", formData) //change ---- to send to api
@@ -88,12 +97,34 @@ export default function SignUpForm() {
                             />  
                     </div>
                     <div>
+                        <label htmlFor="state">State:</label>
+                        <input
+                            type="text"
+                            id="state"
+                            name="state"
+                            value={ formData.state }
+                            onChange={ handleChange }
+                            required
+                            />  
+                    </div>
+                    <div>
                         <label htmlFor="street_name">Street:</label>
                         <input
                             type="text"
                             id="street_name"
                             name="street_name"
                             value={ formData.street_name }
+                            onChange={ handleChange }
+                            required
+                            />  
+                    </div>
+                    <div>
+                        <label htmlFor="zip_code">Zip Code:</label>
+                        <input
+                            type="text"
+                            id="zip_code"
+                            name="zip_code"
+                            value={ formData.zip_code }
                             onChange={ handleChange }
                             required
                             />  
