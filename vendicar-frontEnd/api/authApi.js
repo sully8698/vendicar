@@ -13,7 +13,7 @@ const payload = {
     },
     body: JSON.stringify(context)
 }
-const body = await basicFetch("http://localhost:80/api/accounts/signup",payload) //update 
+const body = await basicFetch("http://localhost:8000/vendicar/accounts/signup",payload)
 return body
 }
 
@@ -25,6 +25,6 @@ const payload = {
     },
     body: JSON.stringify(context)
 }
-const body = await basicFetch("http://localhost:80/api/accounts/get-token", payload) //update 
+const body = await basicFetch("http://localhost:8000/vendicar/accounts/get-token", payload) 
 return body.token
 }
