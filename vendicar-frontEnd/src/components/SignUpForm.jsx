@@ -27,7 +27,7 @@ export default function SignUpForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(formData)
+        
         const context = {
             username: formData.business_user_name, 
             password: formData.password,
@@ -41,28 +41,30 @@ export default function SignUpForm() {
                 business_email: formData.business_email,
             }
          }
+        try {
+            const response = await signup(context)
+            
+            setFormData({
+                business_user_name: "",
+                password: "",
+                business_name: "",
+                state: "",
+                street_name: "",
+                zip_code: "",
+                city: "",
+                phone_number: "",
+                business_email: "",
+            }); 
+            console.log(`Dealer Profile with user name ${response.username} created`)
+            navigate('/login')
+        }
+        catch (error) {
+            console.error("Signup error, are all fields filled in?", error)
+        }
+
         
-        const response = await signup(context)
-        
-        setFormData({
-            business_user_name: "",
-            password: "",
-            business_name: "",
-            state: "",
-            street_name: "",
-            zip_code: "",
-            city: "",
-            phone_number: "",
-            business_email: "",
-        }); 
-        console.log(formData)
     }
                
-        // console.log("form Data:", formData) //change ---- to send to api
-        
-        
-
-
     return (
         <>
             

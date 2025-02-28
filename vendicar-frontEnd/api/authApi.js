@@ -50,5 +50,5 @@ export async function getuserinfo(token) {
         },
     }
     const body = await basicFetch("http://localhost:8000/vendicar/accounts/",payload)
-    return body.result
+    return body
     }
