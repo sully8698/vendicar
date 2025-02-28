@@ -1,9 +1,18 @@
 import { useState } from 'react'
 import './App.css'
-import CreateDealerAccount from './pages/CreateDealerAccount'
+// import CreateDealerAccount from './pages/CreateDealerAccount'
+import Home from './pages/Home'
+import { BrowserRouter, Routes, Route, Link } from "react-router";
+import CreateDealerAccount from './pages/CreateDealerAccount';
+import DealerSignIn from './pages/DealerSignIn'
+import LoggedHome from './pages/LoggedHome';
 
 function App() {
+  const [formData, setFormData] = useState({ username: '', password: '' });
   const [userToken, setUserToken] = useState(null)
+
+  const handleClick = () => {
+    setIsLoggedIn(prevState => !prevState)};
 
   const handleToken = (token) => {
     setFormData({ username: '', password: '' })
@@ -19,12 +28,15 @@ function App() {
   };
 
   return (
-    <>
-      
-      <CreateDealerAccount />
-
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={ < Home />} />
+        <Route path="/sign-up" element={ <CreateDealerAccount /> } />
+        <Route path="/login" element={< DealerSignIn handleInputChange={handleInputChange} formData={formData} handleToken={handleToken} />} /> 
+        <Route path="/home" element={ < LoggedHome /> } />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;

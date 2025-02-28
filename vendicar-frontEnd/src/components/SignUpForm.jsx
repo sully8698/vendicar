@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { signup } from "../../api/authApi";
+import { useNavigate } from "react-router";
 
 export default function SignUpForm() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         business_user_name: "",
             password: "",
@@ -62,6 +65,9 @@ export default function SignUpForm() {
 
     return (
         <>
+            
+           
+
                 <form onSubmit={ handleSubmit } >
                     <div>
                         <label htmlFor="business_user_name">Username for business:</label>
@@ -162,8 +168,11 @@ export default function SignUpForm() {
                             required
                             />  
                     </div>
-                        <button type="submit" style={{ display: "block", margin: "auto"}}> Submit </button>
+                        <button type="submit" style={{ display: "block", margin: "auto"}}> Submit </button> 
                 </form>
+                    <br></br>
+                        <button onClick={() => navigate('/')}>Cancel</button>
+               
         </>
        
     )
