@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { getuserinfo, updateuserinfo } from "../../api/authApi";
+import { getuserinfo, updateuserinfo, deleteuserinfo } from "../../api/authApi";
 import { useContext } from "react";
 import TokenContext from "../contexts/TokenContext";
-// import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function LoggedHome() {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const [userProfile, setUserProfile] = useState(null)
     const [updatedProfile, setUpdatedProfile] = useState({})
-    
+    const [showAlert, setShowAlert] = useState(false)
     const userToken = useContext(TokenContext)
 
     useEffect(() => {
@@ -54,6 +54,18 @@ export default function LoggedHome() {
         setUpdatedProfile(updatedData.car_dealer_profile);
        
     };
+
+    const handleDelete = async () => {
+        const confirmation = window.confirm("Are you sure you want to delete your profile?")
+
+        if (confirmation) {
+            const response = await deleteuserinfo(userToken)
+            alert('Your profile has been deleted')
+        } else {
+            alert('Profile deletion canceled')
+        }
+        setShowAlert(false)
+    }
     
 
     return(
@@ -71,7 +83,7 @@ export default function LoggedHome() {
                             Zip:    {userProfile.car_dealer_profile.zip_code} 
                             </li>
                         </ul>
-                            {/* <button>Delete</button>  */}
+                            <button onClick={() => handleDelete()}>Delete</button> 
                     </div>
                     
                     <form onSubmit={ handleUpdate } >
@@ -155,7 +167,7 @@ export default function LoggedHome() {
                         <button type="submit" style={{ display: "block", margin: "auto"}}> Submit </button> 
                 </form>
                     <br></br>
-                        {/* <button onClick={() => navigate('/')}>Cancel</button> */}
+                        <button onClick={() => navigate('/')}>Close</button>
                 </>
                           ) : (
                 <p>Loading user profile....</p>
